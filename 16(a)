@@ -1,0 +1,17 @@
+set ns [new Simulator]
+set tracefile [open output.tr w]
+$ns trace-all $tracefile
+
+set n0 [$ns node]
+set n1 [$ns node]
+$ns duplex-link $n0 $n1 10Mb 10ms DropTail
+
+proc finish {} {
+    global ns tracefile
+    $ns flush-trace
+    close $tracefile
+    exit 0
+}
+
+$ns at 1.0 "finish"
+$ns run
